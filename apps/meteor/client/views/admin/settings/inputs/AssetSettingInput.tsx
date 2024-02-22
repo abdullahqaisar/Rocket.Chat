@@ -1,4 +1,4 @@
-import { Button, Field, FieldLabel, FieldRow, Icon } from '@rocket.chat/fuselage';
+import { Box, Button, Field, FieldLabel, FieldRow, Icon, Tag } from '@rocket.chat/fuselage';
 import { Random } from '@rocket.chat/random';
 import { useToastMessageDispatch, useEndpoint, useTranslation, useUpload } from '@rocket.chat/ui-contexts';
 import type { ChangeEventHandler, DragEvent, ReactElement, SyntheticEvent } from 'react';
@@ -12,10 +12,21 @@ type AssetSettingInputProps = {
 	value?: { url: string };
 	asset?: any;
 	required?: boolean;
+	disabled?: boolean;
+	enterprise?: boolean;
 	fileConstraints?: { extensions: string[] };
 };
 
-function AssetSettingInput({ _id, label, value, asset, required, fileConstraints }: AssetSettingInputProps): ReactElement {
+function AssetSettingInput({
+	_id,
+	label,
+	value,
+	asset,
+	required,
+	disabled,
+	fileConstraints,
+	enterprise,
+}: AssetSettingInputProps): ReactElement {
 	const t = useTranslation();
 
 	const dispatchToastMessage = useToastMessageDispatch();
@@ -60,7 +71,10 @@ function AssetSettingInput({ _id, label, value, asset, required, fileConstraints
 	return (
 		<Field>
 			<FieldLabel htmlFor={_id} title={_id} required={required}>
-				{label}
+				<Box is='span' mie={4}>
+					{label}
+				</Box>
+				{enterprise && <Tag variant='primary'>{t('Enterprise')}</Tag>}
 			</FieldLabel>
 			<FieldRow>
 				<div className='settings-file-preview'>
@@ -78,17 +92,18 @@ function AssetSettingInput({ _id, label, value, asset, required, fileConstraints
 					)}
 					<div className='action'>
 						{value?.url ? (
-							<Button icon='trash' onClick={handleDeleteButtonClick}>
+							<Button icon='trash' disabled={disabled} onClick={handleDeleteButtonClick}>
 								{t('Delete')}
 							</Button>
 						) : (
-							<div className='rc-button rc-button--primary'>
+							<div className={`rcx-button rcx-button--primary ${disabled ? 'is-disabled' : ''}`}>
 								{t('Select_file')}
 								<input
 									className='AssetSettingInput__input'
 									type='file'
 									accept={`.${fileConstraints?.extensions?.join(', .')}`}
 									onChange={handleUpload}
+									disabled={disabled}
 								/>
 							</div>
 						)}
