@@ -1128,6 +1128,7 @@ class LivechatClass {
 			'Livechat_data_processing_consent_text',
 			'Livechat_show_agent_info',
 			'Livechat_clear_local_storage_when_chat_ended',
+			'Assets_livechat_widget_logo',
 		]).forEach((setting) => {
 			rcSettings[setting._id] = setting.value;
 		});
