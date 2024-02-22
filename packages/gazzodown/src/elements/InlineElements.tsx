@@ -12,6 +12,7 @@ import ItalicSpan from './ItalicSpan';
 import LinkSpan from './LinkSpan';
 import PlainSpan from './PlainSpan';
 import StrikeSpan from './StrikeSpan';
+import Timestamp from './Timestamp';
 
 const CodeElement = lazy(() => import('../code/CodeElement'));
 const KatexElement = lazy(() => import('../katex/KatexElement'));
@@ -69,6 +70,10 @@ const InlineElements = ({ children }: InlineElementsProps): ReactElement => (
 							<KatexElement code={child.value} />
 						</KatexErrorBoundary>
 					);
+
+				case 'TIMESTAMP': {
+					return <Timestamp key={index} children={child} />;
+				}
 
 				default:
 					return null;
