@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 import { Tag } from '@rocket.chat/fuselage';
 import type * as MessageParser from '@rocket.chat/message-parser';
-import { format } from 'date-fns/format';
-import { formatDistanceToNow } from 'date-fns/formatDistanceToNow';
-import { lightFormat } from 'date-fns/lightFormat';
+import format from 'date-fns/format';
+import formatDistanceToNow from 'date-fns/formatDistanceToNow';
+import lightFormat from 'date-fns/lightFormat';
 import { useContext, useEffect, useState, type ReactElement } from 'react';
 
 import { MarkupInteractionContext } from '../../MarkupInteractionContext';
