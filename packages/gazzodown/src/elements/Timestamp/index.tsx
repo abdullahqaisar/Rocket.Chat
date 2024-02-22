@@ -1,10 +1,9 @@
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 import { Tag } from '@rocket.chat/fuselage';
 import type * as MessageParser from '@rocket.chat/message-parser';
-import format from 'date-fns/format';
-import lightFormat from 'date-fns/lightFormat';
+import { format } from 'date-fns/format';
+import { lightFormat } from 'date-fns/lightFormat';
 import { useContext, useEffect, useState, type ReactElement } from 'react';
-import { ErrorBoundary } from 'react-error-boundary';
 
 import { MarkupInteractionContext } from '../../MarkupInteractionContext';
 import { timeAgo } from './timeago';
