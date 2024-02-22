@@ -11,6 +11,7 @@ import { fireGlobalEvent } from '../lib/utils/fireGlobalEvent';
 import { useUserCard } from '../views/room/contexts/UserCardContext';
 import { useGoToRoom } from '../views/room/hooks/useGoToRoom';
 import { useMessageListHighlights } from './message/list/MessageListContext';
+import { useFeaturePreview } from '@rocket.chat/ui-client';
 
 type GazzodownTextProps = {
 	children: JSX.Element;
@@ -25,6 +26,8 @@ type GazzodownTextProps = {
 };
 
 const GazzodownText = ({ mentions, channels, searchText, children }: GazzodownTextProps) => {
+	const enableTimestamp = useFeaturePreview('enable-timestamp-message-parser');
+
 	const highlights = useMessageListHighlights();
 	const { triggerProps, openUserCard } = useUserCard();
 
@@ -124,7 +127,11 @@ const GazzodownText = ({ mentions, channels, searchText, children }: GazzodownTe
 				isMobile,
 				ownUserId,
 				showMentionSymbol,
+<<<<<<< HEAD
 				triggerProps,
+=======
+				enableTimestamp,
+>>>>>>> 8b37ec1738 (add timestamp feature preview)
 			}}
 		>
 			{children}

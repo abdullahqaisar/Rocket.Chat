@@ -1906,6 +1906,8 @@
   "Enable_Svg_Favicon": "Enable SVG favicon",
   "Enable_two-factor_authentication": "Enable two-factor authentication via TOTP",
   "Enable_two-factor_authentication_email": "Enable two-factor authentication via Email",
+  "Enable_timestamp": "Enable timestamp parsing in messages",
+	"Enable_timestamp_description": "Enable timestamps to be parsed in messages",
   "Enable_unlimited_apps": "Enable unlimited apps",
   "Enabled": "Enabled",
   "Encrypted": "Encrypted",
