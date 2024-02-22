@@ -15,7 +15,6 @@ module.exports = {
 			include: /node_modules/,
 			loader: 'babel-loader',
 		});
-		console.log(config.module.rules);
 		return config;
 	},
 };
