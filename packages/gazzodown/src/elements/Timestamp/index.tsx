@@ -48,43 +48,44 @@ const Timestamp = ({ children }: BoldSpanProps): ReactElement => {
 
 // eslint-disable-next-line react/no-multi-comp
 const ShortTime = ({ value }: { value: number }) => (
-	<Tag>
-		<time dateTime={new Date(value).toISOString()}> {lightFormat(new Date(value), 'HH:mm')} </time>
-	</Tag>
+	<Time value={lightFormat(new Date(value), 'HH:mm')} dateTime={new Date(value).toISOString()} />
 );
 
 // eslint-disable-next-line react/no-multi-comp
 const LongTime = ({ value }: { value: number }) => (
-	<Tag>
-		<time dateTime={new Date(value).toISOString()}> {lightFormat(new Date(value), 'HH:mm:ss')} </time>
-	</Tag>
+	<Time value={lightFormat(new Date(value), 'HH:mm:ss')} dateTime={new Date(value).toISOString()} />
 );
 
 // eslint-disable-next-line react/no-multi-comp
 const ShortDate = ({ value }: { value: number }) => (
-	<Tag>
-		<time dateTime={new Date(value).toISOString()}> {lightFormat(new Date(value), 'dd/MM/yyyy')} </time>
-	</Tag>
+	<Time value={lightFormat(new Date(value), 'dd/MM/yyyy')} dateTime={new Date(value).toISOString()} />
 );
 // eslint-disable-next-line react/no-multi-comp
 const LongDate = ({ value }: { value: number }) => (
-	<Tag>
-		<time dateTime={new Date(value).toISOString()}> {lightFormat(new Date(value), 'dd/MM/yyyy HH:mm:ss')} </time>
-	</Tag>
+	<Time value={lightFormat(new Date(value), 'dd/MM/yyyy HH:mm:ss')} dateTime={new Date(value).toISOString()} />
 );
 
 // eslint-disable-next-line react/no-multi-comp
 const FullDate = ({ value }: { value: number }) => (
-	<Tag>
-		<time dateTime={new Date(value).toISOString()}> {format(new Date(value), 'EEEE MMMM d, yyyy h:mm a')} </time>
-	</Tag>
+	<Time value={format(new Date(value), 'EEEE MMMM d, yyyy h:mm a')} dateTime={new Date(value).toISOString()} />
 );
 
 // eslint-disable-next-line react/no-multi-comp
 const FullDateLong = ({ value }: { value: number }) => (
-	<Tag>
-		<time dateTime={new Date(value).toISOString()}> {format(new Date(value), 'EEEE MMMM d, yyyy h:mm:ss a')} </time>
-	</Tag>
+	<Time value={format(new Date(value), 'EEEE MMMM d, yyyy h:mm:ss a')} dateTime={new Date(value).toISOString()} />
+);
+
+// eslint-disable-next-line react/no-multi-comp
+const Time = ({ value, dateTime }: { value: string; dateTime: string }) => (
+	<time
+		title={new Date(dateTime).toLocaleString()}
+		dateTime={dateTime}
+		style={{
+			display: 'inline-block',
+		}}
+	>
+		<Tag> {value}</Tag>
+	</time>
 );
 
 // eslint-disable-next-line react/no-multi-comp
@@ -101,11 +102,7 @@ const RelativeTime = ({ value }: { value: number }) => {
 		return () => clearInterval(interval);
 	}, [value, timeToRefresh]);
 
-	return (
-		<Tag>
-			<time dateTime={new Date(value).toISOString()}> {time} </time>
-		</Tag>
-	);
+	return <Time value={time} dateTime={new Date(value).toISOString()} />;
 };
 
 const getTimeToRefresh = (time: number): number => {

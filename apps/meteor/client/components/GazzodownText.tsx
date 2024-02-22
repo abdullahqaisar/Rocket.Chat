@@ -2,6 +2,7 @@ import type { IRoom } from '@rocket.chat/core-typings';
 import type { ChannelMention, UserMention } from '@rocket.chat/gazzodown';
 import { MarkupInteractionContext } from '@rocket.chat/gazzodown';
 import { escapeRegExp } from '@rocket.chat/string-helpers';
+import { useFeaturePreview } from '@rocket.chat/ui-client';
 import { useLayout, useRouter, useSetting, useUserPreference, useUserId } from '@rocket.chat/ui-contexts';
 import type { UIEvent } from 'react';
 import React, { useCallback, memo, useMemo } from 'react';
@@ -11,7 +12,6 @@ import { fireGlobalEvent } from '../lib/utils/fireGlobalEvent';
 import { useUserCard } from '../views/room/contexts/UserCardContext';
 import { useGoToRoom } from '../views/room/hooks/useGoToRoom';
 import { useMessageListHighlights } from './message/list/MessageListContext';
-import { useFeaturePreview } from '@rocket.chat/ui-client';
 
 type GazzodownTextProps = {
 	children: JSX.Element;
@@ -127,11 +127,8 @@ const GazzodownText = ({ mentions, channels, searchText, children }: GazzodownTe
 				isMobile,
 				ownUserId,
 				showMentionSymbol,
-<<<<<<< HEAD
 				triggerProps,
-=======
 				enableTimestamp,
->>>>>>> 8b37ec1738 (add timestamp feature preview)
 			}}
 		>
 			{children}
