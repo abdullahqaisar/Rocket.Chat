@@ -61,6 +61,7 @@ type MemoizedSettingProps = {
 	disabled?: boolean;
 	required?: boolean;
 	showUpgradeButton?: ReactNode;
+	tag?: ReactNode;
 	actionText?: string;
 };
 
@@ -74,6 +75,7 @@ const MemoizedSetting = ({
 	onChangeEditor,
 	disabled,
 	showUpgradeButton,
+	tag,
 	className = undefined,
 	invisible = undefined,
 	...inputProps
@@ -90,6 +92,7 @@ const MemoizedSetting = ({
 				<InputComponent
 					value={value}
 					hint={hint}
+					tag={tag}
 					editor={editor}
 					onChangeValue={onChangeValue}
 					onChangeEditor={onChangeEditor}

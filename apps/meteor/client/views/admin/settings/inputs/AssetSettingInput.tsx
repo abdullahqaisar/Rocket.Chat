@@ -1,7 +1,7 @@
-import { Box, Button, Field, FieldLabel, FieldRow, Icon, Tag } from '@rocket.chat/fuselage';
+import { Box, Button, Field, FieldLabel, FieldRow, Icon } from '@rocket.chat/fuselage';
 import { Random } from '@rocket.chat/random';
 import { useToastMessageDispatch, useEndpoint, useTranslation, useUpload } from '@rocket.chat/ui-contexts';
-import type { ChangeEventHandler, DragEvent, ReactElement, SyntheticEvent } from 'react';
+import type { ChangeEventHandler, DragEvent, ReactElement, ReactNode, SyntheticEvent } from 'react';
 import React from 'react';
 
 import './AssetSettingInput.styles.css';
@@ -13,20 +13,11 @@ type AssetSettingInputProps = {
 	asset?: any;
 	required?: boolean;
 	disabled?: boolean;
-	enterprise?: boolean;
+	tag?: ReactNode;
 	fileConstraints?: { extensions: string[] };
 };
 
-function AssetSettingInput({
-	_id,
-	label,
-	value,
-	asset,
-	required,
-	disabled,
-	fileConstraints,
-	enterprise,
-}: AssetSettingInputProps): ReactElement {
+function AssetSettingInput({ _id, label, value, asset, required, disabled, fileConstraints, tag }: AssetSettingInputProps): ReactElement {
 	const t = useTranslation();
 
 	const dispatchToastMessage = useToastMessageDispatch();
@@ -74,7 +65,7 @@ function AssetSettingInput({
 				<Box is='span' mie={4}>
 					{label}
 				</Box>
-				{enterprise && <Tag variant='primary'>{t('Enterprise')}</Tag>}
+				{tag}
 			</FieldLabel>
 			<FieldRow>
 				<div className='settings-file-preview'>

@@ -1,6 +1,6 @@
 import type { ISettingColor, SettingEditor, SettingValue } from '@rocket.chat/core-typings';
 import { isSettingColor, isSetting } from '@rocket.chat/core-typings';
-import { Button } from '@rocket.chat/fuselage';
+import { Button, Tag } from '@rocket.chat/fuselage';
 import { useDebouncedCallback } from '@rocket.chat/fuselage-hooks';
 import { useSettingStructure, useTranslation } from '@rocket.chat/ui-contexts';
 import type { ReactElement } from 'react';
@@ -133,6 +133,7 @@ function Setting({ className = undefined, settingId, sectionChanged }: SettingPr
 		<MemoizedSetting
 			className={className}
 			label={label || undefined}
+			tag={shouldDisableEnterprise ? <Tag variant='primary'>{t('Premium')}</Tag> : undefined}
 			hint={hint}
 			callout={callout}
 			showUpgradeButton={showUpgradeButton}
