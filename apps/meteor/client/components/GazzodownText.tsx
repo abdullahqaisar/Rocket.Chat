@@ -13,6 +13,7 @@ import { fireGlobalEvent } from '../lib/utils/fireGlobalEvent';
 import { useUserCard } from '../views/room/contexts/UserCardContext';
 import { useGoToRoom } from '../views/room/hooks/useGoToRoom';
 import { useMessageListHighlights } from './message/list/MessageListContext';
+import { useFeaturePreview } from '@rocket.chat/ui-client';
 
 type GazzodownTextProps = {
 	children: JSX.Element;
