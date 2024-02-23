@@ -27,8 +27,8 @@ type GazzodownTextProps = {
 };
 
 const GazzodownText = ({ mentions, channels, searchText, children }: GazzodownTextProps) => {
-	const [userLanguage] = useLocalStorage('userLanguage', 'en');
 	const enableTimestamp = useFeaturePreview('enable-timestamp-message-parser');
+	const [userLanguage] = useLocalStorage('userLanguage', 'en');
 
 	const highlights = useMessageListHighlights();
 	const { triggerProps, openUserCard } = useUserCard();

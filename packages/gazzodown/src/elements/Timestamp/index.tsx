@@ -1,8 +1,7 @@
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 import { Tag } from '@rocket.chat/fuselage';
 import type * as MessageParser from '@rocket.chat/message-parser';
-import format from 'date-fns/format';
-import lightFormat from 'date-fns/lightFormat';
+import { format, lightFormat } from 'date-fns';
 import { useContext, useEffect, useState, type ReactElement } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 
@@ -53,31 +52,31 @@ const Timestamp = ({ children }: BoldSpanProps): ReactElement => {
 
 // eslint-disable-next-line react/no-multi-comp
 const ShortTime = ({ value }: { value: number }) => (
-	<Time value={lightFormat.lightFormat(new Date(value), 'HH:mm')} dateTime={new Date(value).toISOString()} />
+	<Time value={lightFormat(new Date(value), 'HH:mm')} dateTime={new Date(value).toISOString()} />
 );
 
 // eslint-disable-next-line react/no-multi-comp
 const LongTime = ({ value }: { value: number }) => (
-	<Time value={lightFormat.lightFormat(new Date(value), 'HH:mm:ss')} dateTime={new Date(value).toISOString()} />
+	<Time value={lightFormat(new Date(value), 'HH:mm:ss')} dateTime={new Date(value).toISOString()} />
 );
 
 // eslint-disable-next-line react/no-multi-comp
 const ShortDate = ({ value }: { value: number }) => (
-	<Time value={lightFormat.lightFormat(new Date(value), 'dd/MM/yyyy')} dateTime={new Date(value).toISOString()} />
+	<Time value={lightFormat(new Date(value), 'dd/MM/yyyy')} dateTime={new Date(value).toISOString()} />
 );
 // eslint-disable-next-line react/no-multi-comp
 const LongDate = ({ value }: { value: number }) => (
-	<Time value={lightFormat.lightFormat(new Date(value), 'dd/MM/yyyy HH:mm:ss')} dateTime={new Date(value).toISOString()} />
+	<Time value={lightFormat(new Date(value), 'dd/MM/yyyy HH:mm:ss')} dateTime={new Date(value).toISOString()} />
 );
 
 // eslint-disable-next-line react/no-multi-comp
 const FullDate = ({ value }: { value: number }) => (
-	<Time value={format.format(new Date(value), 'EEEE MMMM d, yyyy h:mm a')} dateTime={new Date(value).toISOString()} />
+	<Time value={format(new Date(value), 'EEEE MMMM d, yyyy h:mm a')} dateTime={new Date(value).toISOString()} />
 );
 
 // eslint-disable-next-line react/no-multi-comp
 const FullDateLong = ({ value }: { value: number }) => (
-	<Time value={format.format(new Date(value), 'EEEE MMMM d, yyyy h:mm:ss a')} dateTime={new Date(value).toISOString()} />
+	<Time value={format(new Date(value), 'EEEE MMMM d, yyyy h:mm:ss a')} dateTime={new Date(value).toISOString()} />
 );
 
 // eslint-disable-next-line react/no-multi-comp
