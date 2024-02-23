@@ -113,6 +113,11 @@ const RelativeTime = ({ value }: { value: number }) => {
 const getTimeToRefresh = (time: number): number => {
 	const timeToRefresh = time - Date.now();
 
+	// less than 1 minute
+	if (timeToRefresh < 60000) {
+		return 1000;
+	}
+
 	// if the difference is in the minutes range, we should refresh the time in 1 minute / 2
 	if (timeToRefresh < 3600000) {
 		return 60000 / 2;
