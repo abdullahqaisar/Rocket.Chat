@@ -2,11 +2,12 @@
 import { Tag } from '@rocket.chat/fuselage';
 import type * as MessageParser from '@rocket.chat/message-parser';
 import format from 'date-fns/format';
-import formatDistanceToNow from 'date-fns/formatDistanceToNow';
 import lightFormat from 'date-fns/lightFormat';
 import { useContext, useEffect, useState, type ReactElement } from 'react';
+import { ErrorBoundary } from 'react-error-boundary';
 
 import { MarkupInteractionContext } from '../../MarkupInteractionContext';
+import { timeAgo } from './timeago';
 
 type BoldSpanProps = {
 	children: MessageParser.Timestamp;
@@ -39,7 +40,11 @@ const Timestamp = ({ children }: BoldSpanProps): ReactElement => {
 			return <FullDateLong value={parseInt(children.value.timestamp)} />;
 
 		case 'R': // Relative time format
-			return <RelativeTime value={parseInt(children.value.timestamp)} />;
+			return (
+				<ErrorBoundary fallback={<>{new Date().toUTCString()}</>}>
+					<RelativeTime key={children.value.timestamp} value={parseInt(children.value.timestamp)} />
+				</ErrorBoundary>
+			);
 
 		default:
 			return <time dateTime={children.value.timestamp}> {JSON.stringify(children.value.timestamp)}</time>;
@@ -90,12 +95,13 @@ const Time = ({ value, dateTime }: { value: string; dateTime: string }) => (
 
 // eslint-disable-next-line react/no-multi-comp
 const RelativeTime = ({ value }: { value: number }) => {
-	const [time, setTime] = useState(() => formatDistanceToNow(new Date(value)));
+	const { language } = useContext(MarkupInteractionContext);
+	const [time, setTime] = useState(() => timeAgo(value, language ?? 'en'));
 	const [timeToRefresh, setTimeToRefresh] = useState(() => getTimeToRefresh(value));
 
 	useEffect(() => {
 		const interval = setInterval(() => {
-			setTime(formatDistanceToNow(new Date(value)));
+			setTime(timeAgo(value, 'en'));
 			setTimeToRefresh(getTimeToRefresh(value));
 		}, timeToRefresh);
 
