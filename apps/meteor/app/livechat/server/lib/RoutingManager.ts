@@ -28,6 +28,8 @@ import {
 	updateChatDepartment,
 	allowAgentSkipQueue,
 } from './Helper';
+import { useSetting } from '@rocket.chat/ui-contexts';
+import { settings } from '/app/settings/server';
 
 const logger = new Logger('RoutingManager');
 
@@ -47,7 +49,7 @@ type Routing = {
 		options?: { clientAction?: boolean; forwardingToDepartment?: { oldDepartmentId?: string; transferData?: any } },
 	): Promise<(IOmnichannelRoom & { chatQueued?: boolean }) | null | void>;
 	assignAgent(inquiry: InquiryWithAgentInfo, agent: SelectedAgent): Promise<InquiryWithAgentInfo>;
-	unassignAgent(inquiry: ILivechatInquiryRecord, departmentId?: string): Promise<boolean>;
+	unassignAgent(inquiry: ILivechatInquiryRecord, departmentId?: string, agent?: SelectedAgent): Promise<boolean>;
 	takeInquiry(
 		inquiry: Omit<
 			ILivechatInquiryRecord,
@@ -128,7 +130,7 @@ export const RoutingManager: Routing = {
 
 		if (!agent) {
 			logger.debug(`No agents available. Unable to delegate inquiry ${inquiry._id}`);
-			// When an inqury reaches here on CE, it will stay here as 'ready' since on CE there's no mechanism to re queue it.
+			// When an inquiry reaches here on CE, it will stay here as 'ready' since on CE there's no mechanism to re queue it.
 			// When reaching this point, managers have to manually transfer the inquiry to another room. This is expected.
 			return LivechatRooms.findOneById(rid);
 		}
@@ -176,7 +178,7 @@ export const RoutingManager: Routing = {
 		return inquiry;
 	},
 
-	async unassignAgent(inquiry, departmentId) {
+	async unassignAgent(inquiry: ILivechatInquiryRecord, departmentId?: string, agent?: SelectedAgent) {
 		const { rid, department } = inquiry;
 		const room = await LivechatRooms.findOneById(rid);
 
@@ -205,7 +207,7 @@ export const RoutingManager: Routing = {
 			await dispatchAgentDelegated(rid);
 		}
 
-		await dispatchInquiryQueued(inquiry);
+		await dispatchInquiryQueued(inquiry, agent);
 		return true;
 	},
 
@@ -273,9 +275,9 @@ export const RoutingManager: Routing = {
 	},
 
 	async transferRoom(room, guest, transferData) {
-		logger.debug(`Transfering room ${room._id} by ${transferData.transferredBy._id}`);
+		logger.debug(`Transferring room ${room._id} by ${transferData.transferredBy._id}`);
 		if (transferData.departmentId) {
-			logger.debug(`Transfering room ${room._id} to department ${transferData.departmentId}`);
+			logger.debug(`Transferring room ${room._id} to department ${transferData.departmentId}`);
 			return forwardRoomToDepartment(room, guest, transferData);
 		}
 

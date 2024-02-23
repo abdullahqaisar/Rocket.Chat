@@ -124,6 +124,7 @@ export class OmnichannelQueue implements IOmnichannelQueue {
 	}
 
 	private async processWaitingQueue(department: string | undefined, inquiry: InquiryWithAgentInfo) {
+		console.log('🚀 ~ OmnichannelQueue ~ processWaitingQueue ~ inquiry:', inquiry);
 		const queue = department || 'Public';
 		queueLogger.debug(`Processing items on queue ${queue}`);
 

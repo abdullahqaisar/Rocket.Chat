@@ -183,7 +183,7 @@ class LivechatClass {
 
 	async online(department?: string, skipNoAgentSetting = false, skipFallbackCheck = false): Promise<boolean> {
 		Livechat.logger.debug(`Checking online agents ${department ? `for department ${department}` : ''}`);
-		if (!skipNoAgentSetting && settings.get('Livechat_accept_chats_with_no_agents')) {
+		if (settings.get('Livechat_accept_chats_with_no_agents')) {
 			Livechat.logger.debug('Can accept without online agents: true');
 			return true;
 		}
@@ -228,6 +228,10 @@ class LivechatClass {
 			return Users.findByIds<ILivechatAgent>(agentIds);
 		}
 		return Users.findOnlineAgents();
+	}
+
+	async getAgentById(agentId: string): Promise<ILivechatAgent | undefined> {
+		return Users.findOneAgentById<ILivechatAgent>(agentId, {});
 	}
 
 	async closeRoom(params: CloseRoomParams): Promise<void> {

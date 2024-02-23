@@ -17,6 +17,7 @@ export const saveQueueInquiry = async (inquiry: ILivechatInquiryRecord) => {
 };
 
 export const queueInquiry = async (inquiry: ILivechatInquiryRecord, defaultAgent?: SelectedAgent) => {
+	console.log('🚀 ~ queueInquiry ~ inquiry:', inquiry);
 	const inquiryAgent = await RoutingManager.delegateAgent(defaultAgent, inquiry);
 	logger.debug(`Delegating inquiry with id ${inquiry._id} to agent ${defaultAgent?.username}`);
 
